@@ -15,15 +15,27 @@ import { AppComponent } from "./app.component";
 import { AboutComponent } from "./pages/about.component";
 import { LocationsComponent } from "./pages/locations.component";
 import { SidenavComponent } from "./sidenav/sidenav.component";
+import { MapComponent } from './pages/map/map.component';
+import { OccupencyComponent } from './pages/occupency/occupency.component';
+import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
+import { AirquailityComponent } from './pages/airquaility/airquaility.component';
 
 export const ROUTES: Routes = [
   {
-    path: "about",
-    component: AboutComponent,
+    path: "map",
+    component: MapComponent,
   },
   {
-    path: "locations",
-    component: LocationsComponent,
+    path: "Occupancy",
+    component: OccupencyComponent,
+  },
+  {
+    path: "PM",
+    component: MaintenanceComponent,
+  },
+  {
+    path: "IAQ",
+    component: AirquailityComponent,
   },
 
   { path: "**", redirectTo: "about" },
@@ -35,6 +47,7 @@ export const ROUTES: Routes = [
     AboutComponent,
     LocationsComponent,
     SidenavComponent,
+    MapComponent,
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

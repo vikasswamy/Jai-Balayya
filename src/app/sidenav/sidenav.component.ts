@@ -1,42 +1,31 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-
+import { MatIconRegistry } from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser'; 
 @Component({
   selector: "side-nav",
   styleUrls: ["./sidenav.component.scss"],
-  template: `
-    <section [class.sidenav]="isExpanded">
-      <div class="toggle">
-        <mat-icon (click)="toggleMenu.emit(null)">
-          {{ isExpanded ? "keyboard_backspace" : "dehaze" }}
-        </mat-icon>
-      </div>
-
-      <mat-list class="nav" *ngFor="let route of routeLinks">
-        <a
-          mat-list-item
-          routerLinkActive="active-link"
-          class="hover"
-          routerLink="{{ route.link }}"
-        >
-          <mat-icon
-            mat-list-icon
-            [matTooltip]="!isExpanded ? route.name : null"
-            matTooltipPosition="right"
-          >
-            {{ route.icon }}</mat-icon
-          >
-          <p matLine *ngIf="isExpanded">{{ route.name }}</p>
-        </a>
-      </mat-list>
-    </section>
-  `,
+  templateUrl: './sidenav.component.html',
 })
 export class SidenavComponent {
   @Input() isExpanded: boolean;
   @Output() toggleMenu = new EventEmitter();
-
-  public routeLinks = [
-    { link: "about", name: "About", icon: "dashboard" },
-    { link: "locations", name: "Locations", icon: "account_balance" },
+   routeLinks = [
+    { link: "map", name: "Map", icon: "language icon" },
+    { link: "Occupancy", name: "Occupancy", icon: "dashboard" },
+    { link: "IAQ", name: "IAQ", icon: "opacity icon" },
+    { link: "PM", name: "Premetive Maintenance", icon: " extension icon" },
   ];
+  tools=[
+    { link: "Settings", name: "Settings", icon: "settings" },
+    { link: "Users", name: "User Management", icon: "supervised_user_circle" },
+
+  ]
+  constructor( private matIconRegistry:MatIconRegistry,
+    private domSanitzer:DomSanitizer,) {
+      this.matIconRegistry.addSvgIcon(
+        'logo',
+        this.domSanitzer.bypassSecurityTrustResourceUrl('https://storagesmartroute27.blob.core.windows.net/3d-geojson/spinners/abm-logo.svg')
+      );
+   }
+  
 }
